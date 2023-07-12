@@ -1,6 +1,6 @@
-# Service C
+# Service A
 
-Simple service in Java 11 and Javalin Micro Framework.
+Simple "hello" service in Python 3 asgi with uvicorn server.
 
 Endpoints:
 
@@ -9,13 +9,20 @@ Endpoints:
 
 ## Develop
 
-Open in your IDE and run *App.java*. Or build the project with Maven and run the jar file.
+```bash
+python3 -m venv .venv  
+source .venv/bin/activate  
+```
+
+In VSCode: Cmd-Shift-P > Select Python Interpreter > .venv/...
+
+### Install dependencies
 
 ```bash
-./mvnw clean package  
-java -jar target/hello-1.0-SNAPSHOT-fat.jar
+pip install -r requirements.txt  
+pip install -r requirements_dev.txt
 ```
 
 ### Container image
 
-With the provided Containerfile you can create a container image.
+Use provided Dockerfile to create a container image.

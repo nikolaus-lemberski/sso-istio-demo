@@ -1,18 +1,10 @@
-# Build
-FROM registry.access.redhat.com/ubi8/openjdk-11 as builder
+FROM python:3.10-slim
 
-COPY .mvn .mvn
-COPY mvnw .
-COPY pom.xml .
-COPY src src
+WORKDIR /app
 
-RUN ./mvnw -B package
-
-# Run
-FROM registry.access.redhat.com/ubi8/openjdk-11-runtime
-
-COPY --from=builder /home/jboss/target/hello-1.0-SNAPSHOT-fat.jar .
+COPY requirements.txt main.py /app/
+RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "hello-1.0-SNAPSHOT-fat.jar"]
+CMD ["python3", "main.py"]

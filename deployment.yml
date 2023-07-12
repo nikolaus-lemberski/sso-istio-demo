@@ -18,6 +18,7 @@ spec:
     spec:
       containers:
       - image: quay.io/nlembers/hello:v1
+        imagePullPolicy: Always
         name: hello
       ports:
         - containerPort: 8080

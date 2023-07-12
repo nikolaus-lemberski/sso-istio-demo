@@ -9,6 +9,7 @@ spec:
   jwtRules:
   - issuer: "https://keycloak-keycloak.apps-crc.testing/realms/myrealm"
     jwksUri: "http://keycloak.keycloak.svc.cluster.local:8080/realms/myrealm/protocol/openid-connect/certs"
+    forwardOriginalToken: true
 
 ---
 apiVersion: "security.istio.io/v1beta1"
