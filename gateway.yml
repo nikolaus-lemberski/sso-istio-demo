@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: apps-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: hello-gateway
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - apps-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /hello
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: hello
+        port:
+          number: 8080
+

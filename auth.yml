@@ -1,0 +1,26 @@
+apiVersion: "security.istio.io/v1beta1"
+kind: "RequestAuthentication"
+metadata:
+  name: hello-jwt
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  jwtRules:
+  - issuer: "https://keycloak-keycloak.apps-crc.testing/realms/myrealm"
+    jwksUri: "http://keycloak.keycloak.svc.cluster.local:8080/realms/myrealm/protocol/openid-connect/certs"
+
+---
+apiVersion: "security.istio.io/v1beta1"
+kind: "AuthorizationPolicy"
+metadata:
+  name: hello-ingress
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  action: DENY
+  rules:
+  - from:
+    - source:
+        notRequestPrincipals: ["*"]
