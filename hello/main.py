@@ -1,6 +1,7 @@
-import os
-import jwt
 import json
+import os
+
+import jwt
 
 port = int(os.environ.get("PORT", default=8080))
 
@@ -25,11 +26,12 @@ async def index(headers):
                    for (k, v) in headers if k.decode("UTF-8") == key}
 
     if not auth_header:
-        return "Hello! No access token provided.", 200
+        return "Hello!\n\nNo access token provided.", 200
 
     token = auth_header[key].split(' ')[1]
     decoded = jwt.decode(token, options={"verify_signature": False})
-    return json.dumps(decoded), 200
+
+    return f"Hello!\n\n {json.dumps(decoded, indent=2, default=str)}\n", 200
 
 
 async def page_not_found():
