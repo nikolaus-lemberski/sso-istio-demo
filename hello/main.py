@@ -25,7 +25,7 @@ async def index(headers):
                    for (k, v) in headers if k.decode("UTF-8") == key}
 
     if not auth_header:
-        return "No access token provided", 200
+        return "Hello! No access token provided.", 200
 
     token = auth_header[key].split(' ')[1]
     decoded = jwt.decode(token, options={"verify_signature": False})

@@ -83,3 +83,5 @@ Then try again the hello URL with the access token Bearer:
 ```bash
 curl -H "Authorization: Bearer <token>" istio-ingressgateway-istio-system.apps-crc.testing/hello
 ```
+
+Now the request is routed to the backend service and the app responds with the contents of the JWT.

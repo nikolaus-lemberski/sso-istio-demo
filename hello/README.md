@@ -1,11 +1,10 @@
 # Service A
 
-Simple "hello" service in Python 3 asgi with uvicorn server.
+Simple "hello" service in Python 3 asgi with uvicorn server. Responds with JWT contents, if set.
 
 Endpoints:
 
 * "/"
-* "/health"
 
 ## Develop
 
