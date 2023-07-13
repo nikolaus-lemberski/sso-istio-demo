@@ -1,7 +1,6 @@
-import json
 import os
-
 import jwt
+import yaml
 
 port = int(os.environ.get("PORT", default=8080))
 
@@ -31,7 +30,7 @@ async def index(headers):
     token = auth_header[key].split(' ')[1]
     decoded = jwt.decode(token, options={"verify_signature": False})
 
-    return f"Hello!\n\n {json.dumps(decoded, indent=2, default=str)}\n", 200
+    return f"Hello!\n\n{yaml.dump(decoded)}\n", 200
 
 
 async def page_not_found():
