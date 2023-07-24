@@ -18,19 +18,26 @@ oc process -f https://raw.githubusercontent.com/keycloak/keycloak-quickstarts/la
 | oc create -f -
 ```
 
+Find the Keycloak URLs when all pods are ready:
+
+```bash
+KEYCLOAK_URL=https://$(oc get route keycloak --template='{{ .spec.host }}') &&
+echo "" &&
+echo "Keycloak:                 $KEYCLOAK_URL" &&
+echo "Keycloak Admin Console:   $KEYCLOAK_URL/admin" &&
+echo "Keycloak Account Console: $KEYCLOAK_URL/realms/myrealm/account" &&
+echo ""
+```
+
 ### Configuration
 
-1. Create a realm "myrealm"
-2. Create a user "myuser"
-3. Create a client "myclient" with client type "OpenID Connect"
+In the Keycloak admin console:
 
-### Client settings
+1. Create a realm "myrealm"
+2. Create a user "myuser" with first name and last name and set a password 'test' or anything you like better; set "Temporary to "Off"
+3. Create a client "myclient" with client type "OpenID Connect", client authentication "On", authentication flow: Standard flow, Direct access grants
 
 In "Access settings", set the root URL to your Keycloak URL (https://keycloak-keycloak.apps-crc.testing in OpenShift local).
-
-In "Capability config" set  
-* Client authentication: ON
-* Authentication flow: Standard flow, Direct access grants
 
 In "Advanced", set "Authentication flow overrides" to  
 * Browser Flow: browser
@@ -40,11 +47,11 @@ In "Advanced", set "Authentication flow overrides" to
 
 See also: https://docs.openshift.com/container-platform/4.13/service_mesh/v2x/installing-ossm.html
 
-* The OpenShift Elasticsearch Operator is installed in the openshift-operators-redhat namespace and is available for all namespaces in the cluster.
+* ElasticSearch Operator not required for testing and Jaeger settings "in memmory"
 * The Red Hat OpenShift distributed tracing platform is installed in the openshift-distributed-tracing namespace and is available for all namespaces in the cluster.
 * The Kiali and Red Hat OpenShift Service Mesh Operators are installed in the openshift-operators namespace and are available for all namespaces in the cluster.
 
-Then create ServiceMeshControlPlane and ServiceMeshMemberRoll and add your apps project / namespace to the member list.
+Then create ServiceMeshControlPlane (MultiTenant in namespace istio-system) and ServiceMeshMemberRoll and add your apps project / namespace to the member list.
 
 ## Project installation
 
